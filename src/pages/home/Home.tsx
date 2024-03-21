@@ -100,7 +100,8 @@ export default function Home() {
         <Grid item xs={6}>
           <Container
             sx={{
-              maxWidth: 720,
+              maxWidth: 520,
+              minWidth: 520,
               minHeight: "calc(100vh - 80px)",
               maxHeight: "calc(100vh - 80px)",
               overflowY: "auto",

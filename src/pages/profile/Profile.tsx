@@ -91,7 +91,7 @@ export default function Profile() {
     user: state.auth.user,
   }));
   const [profileData, setProfileData] = React.useState<any>({});
-  const [value, setTab] = React.useState(1);
+  const [value, setTab] = React.useState(0);
   const [editProfile, setEditProfile] = React.useState(false);
 
   const { control, getValues, setValue } = useForm({
@@ -112,6 +112,11 @@ export default function Profile() {
     if (socket && user?._id) {
       const tempId = params.id || user?._id;
       socket.emit("get-profile-request", tempId);
+      socket.on("create-post-response", (data) => {
+        setProfileData((prev) => {
+          return { ...prev, posts: data };
+        });
+      });
       socket.on("get-profile-response", (data: any) => {
         setProfileData(data);
       });
@@ -172,6 +177,7 @@ export default function Profile() {
       dispatch(setSnack({ open: true, message: error.message, type: "error" }));
     }
   }
+
   return (
     <Page title="Profile">
       <input
@@ -386,7 +392,7 @@ export default function Profile() {
       </Box>
       <Container sx={{ pb: 3 }}>
         <CustomTab value={value} index={0} title="Posts">
-          <Container sx={{ maxWidth: 720, width: 720 }}>
+          <Container sx={{ maxWidth: 520, width: 520 }}>
             {orderBy(profileData?.posts, "timestamp", "desc").map((post) => (
               <PostComponent key={post._id} {...post} />
             ))}
