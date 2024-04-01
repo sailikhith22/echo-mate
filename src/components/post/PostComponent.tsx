@@ -119,7 +119,7 @@ export default function PostComponent(props: PostTypes) {
           src={props.content}
           alt="post"
           style={{
-            width: "100%",
+            width: 620,
             maxHeight: 400,
             objectFit: "contain",
           }}

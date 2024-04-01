@@ -116,7 +116,7 @@ export default function Topbar() {
           justifyContent="center"
           flexGrow={1}
           spacing={2}
-          sx={{ display: { xs: "none", md: "flex" } }}
+          sx={{ display: { xs: "none", md: "flex" }, pr: 22 }}
         >
           {/* {renderLinks} */}
           <IconButton>
