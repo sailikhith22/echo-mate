@@ -1,10 +1,6 @@
 {
   "name": "create-themed-vite-app",
   "version": "0.0.5",
-  "author": {
-    "name": "bobytudu",
-    "email": "js903783@gmail.com"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
