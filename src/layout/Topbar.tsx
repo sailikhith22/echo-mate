@@ -104,7 +104,7 @@ export default function Topbar() {
         <Stack direction="row" alignItems="center">
           <Link to="/" style={{ marginRight: 16 }}>
             <Typography variant="h6" sx={{ color: "text.primary" }}>
-              ECHO MATE
+              Feed
             </Typography>
           </Link>
           <SearchAutocomplete />
@@ -150,7 +150,7 @@ export default function Topbar() {
               }}
             >
               <Typography variant="h6" sx={{ color: "text.primary" }}>
-                Echo mate
+                Feed
               </Typography>
             </Box>
             <List>

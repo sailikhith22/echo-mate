@@ -95,7 +95,7 @@ export default function SearchAutocomplete() {
               onClick={() => {
                 navigate(`/profile/${option._id}`);
                 setOptions([]);
-                setValue(option.displayName)
+                setValue(option.displayName);
               }}
             >
               <ListItemText
@@ -108,7 +108,7 @@ export default function SearchAutocomplete() {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Search Echo mate"
+            placeholder="Search Feed"
             variant="outlined"
             InputProps={{
               ...params.InputProps,

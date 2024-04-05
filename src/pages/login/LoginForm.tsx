@@ -249,10 +249,10 @@ function LoginForm() {
             display: "none",
           },
         },
-        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
       }}
     >
-      <Typography variant="h6">ECHO MATE</Typography>
+      <Typography variant="h6">Feed</Typography>
       {!showReset ? (
         <Box>
           <Input
@@ -282,7 +282,11 @@ function LoginForm() {
                     onClick={() => setShowPassword(!showPassword)}
                     edge="end"
                   >
-                    {showPassword ? <Icon icon="material-symbols:visibility-off-outline" /> : <Icon icon="material-symbols:visibility" />}
+                    {showPassword ? (
+                      <Icon icon="material-symbols:visibility-off-outline" />
+                    ) : (
+                      <Icon icon="material-symbols:visibility" />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -428,10 +432,15 @@ function LoginForm() {
                 Check your email
               </Typography>
               <Typography variant="subtitle2">
-                Please check the email address <strong>{watchEmail}</strong> for instructions to
-                reset your password.
+                Please check the email address <strong>{watchEmail}</strong> for
+                instructions to reset your password.
               </Typography>
-              <Button fullWidth sx={{mt: 2}} variant="outlined" onClick={handleResetPassword}>
+              <Button
+                fullWidth
+                sx={{ mt: 2 }}
+                variant="outlined"
+                onClick={handleResetPassword}
+              >
                 Resend
               </Button>
             </Box>
