@@ -43,6 +43,7 @@ export default function Routes() {
             };
             socket.emit("get-user-by-email-request", userObj);
           }
+          console.log(currentUser);
           dispatch(stopLoading());
         }
       );
@@ -51,7 +52,9 @@ export default function Routes() {
   }, [auth.user, dispatch, socket]);
 
   React.useEffect(() => {
-    const socket = io("http://localhost:3000", {
+    const socketServer = `${import.meta.env.VITE_socket_server}`;
+    console.log({ socketServer });
+    const socket = io(socketServer, {
       reconnectionDelayMax: 10000,
       transports: ["websocket"],
     });
@@ -71,14 +74,14 @@ export default function Routes() {
       const obj = {
         ...user,
         socket_id: socket.id,
-      }
+      };
       dispatch(setUser(obj));
-      socket.emit("update-user",obj );
+      socket.emit("update-user", obj);
     });
 
     socket.io.on("error", (error) => {
       // ...
-      console.log(error.message);
+      console.log(error);
     });
 
     // socket.io.on("ping", () => {

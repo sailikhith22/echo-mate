@@ -201,15 +201,13 @@ export default function AllFriends() {
       try {
         const formData = new FormData();
         formData.append("file", media.file);
-        const { data } = await axios.post(
-          "http://localhost:8000/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        const backendServer = `${import.meta.env.VITE_express_server}`;
+        console.log({ backendServer });
+        const { data } = await axios.post(`${backendServer}/upload`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         chatObj = {
           ...chatObj,
           type: media.type,
