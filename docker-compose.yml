@@ -7,7 +7,7 @@ services:
     env_file: .env
     restart: unless-stopped
     ports:
-      - "5000:5000"  # Map host port 8080 to container port 5000
+      - "3000:3000"  # Map host port 8080 to container port 5000
     volumes:
       - ./echo-mate:/app  # Map local 'app' directory to '/usr/src/app' in the container
     network_mode: host
