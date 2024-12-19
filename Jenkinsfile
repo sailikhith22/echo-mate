@@ -2,17 +2,18 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'sailikhith/node:latest'
-        GIT_REPO = 'https://github.com/sailikhith22/echo-mate.git'
-        K8S_DEPLOYMENT_FILE = 'deployment.yml'
+        DOCKER_IMAGE = 'sailikhith/node:latest'  // Docker image name
+        GIT_REPO = 'https://github.com/sailikhith22/echo-mate.git'  // Git repository URL
+        K8S_DEPLOYMENT_FILE = 'deployment.yml'  // Kubernetes deployment file path
         DOCKER_CREDENTIALS = credentials('docker-hub-credentials')  // Declare credentials globally
+        APP_PATH = '/home/echo-mate'  // Declare application path
     }
 
     stages {
         stage('Clone Repository') {
             steps {
                 script {
-                    git branch: 'main', url: "${GIT_REPO}"
+                    git branch: 'main', url: "${GIT_REPO}"  // Clone the Git repository
                 }
             }
         }
@@ -20,7 +21,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    // Navigate to the application path before building
+                    sh "cd ${APP_PATH} && docker build -t ${DOCKER_IMAGE} ."  // Build the Docker image
                 }
             }
         }
@@ -30,7 +32,7 @@ pipeline {
                 script {
                     // Log in to Docker Hub using globally declared credentials
                     sh "echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin"
-                    sh "docker push ${DOCKER_IMAGE}"
+                    sh "docker push ${DOCKER_IMAGE}"  // Push the Docker image to Docker Hub
                 }
             }
         }
@@ -38,7 +40,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl apply -f ${K8S_DEPLOYMENT_FILE}"
+                    // Apply the Kubernetes deployment configuration using the application path
+                    sh "kubectl apply -f ${K8S_DEPLOYMENT_FILE}"  // Deploy to Kubernetes
                 }
             }
         }
@@ -46,10 +49,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Pipeline completed successfully!'  // Success message
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline failed!'  // Failure message
         }
     }
 }
