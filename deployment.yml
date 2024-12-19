@@ -36,9 +36,10 @@ metadata:
   name: vite-app-service       # Name of the service
   namespace: default           # Change to your desired namespace
 spec:
-  type: ClusterIP              # Type of service (ClusterIP for internal access)
+  type: NodePort                # Type of service
   ports:
-    - port: 80                 # Service port (optional)
-      targetPort: 3000         # Port on which the application is running in the container
+    - port: 80                  # Service port exposed externally
+      targetPort: 3000          # Port on which the application is running in the container
+      nodePort: 30001           # Optional: Specify a NodePort (should be in range 30000-32767)
   selector:
-    app: vite-app              # Selector to link service to pods
+    app: vite-app                # Selector to link service to pods
