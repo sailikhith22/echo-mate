@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vite-app-deployment  # Name of the deployment
+  namespace: default          # Change to your desired namespace
+spec:
+  replicas: 1                 # Number of replicas to run
+  selector:
+    matchLabels:
+      app: vite-app           # Label to identify the pods
+  template:
+    metadata:
+      labels:
+        app: vite-app         # Labels for the pod template
+    spec:
+      containers:
+      - name: vite-app-container
+        image: your-dockerhub-username/vite-app:latest  # Replace with your Docker Hub image name
+        ports:
+        - containerPort: 3000  # Port exposed by the container
+        resources:
+          requests:
+            memory: "256Mi"    # Memory request
+            cpu: "200m"        # CPU request
+          limits:
+            memory: "512Mi"    # Memory limit
+            cpu: "500m"        # CPU limit
+        env:                    # Environment variables (if needed)
+        - name: NODE_ENV       # Example environment variable
+          value: "production"  # Change based on your application needs
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vite-app-service       # Name of the service
+  namespace: default           # Change to your desired namespace
+spec:
+  type: ClusterIP              # Type of service (ClusterIP for internal access)
+  ports:
+    - port: 80                 # Service port (optional)
+      targetPort: 3000         # Port on which the application is running in the container
+  selector:
+    app: vite-app              # Selector to link service to pods
