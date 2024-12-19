@@ -1,5 +1,5 @@
 # Use the latest version of Node.js available on Docker Hub
-FROM node:latest
+FROM node:18
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
