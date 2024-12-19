@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE ='sailikhith/node:latest'  // Docker image name
+        DOCKER_IMAGE ='sailikhith/node:16'  // Docker image name
         GIT_REPO = 'https://github.com/sailikhith22/echo-mate.git'  // Git repository URL
         K8S_DEPLOYMENT_FILE = 'deployment.yml'  // Kubernetes deployment file path
         DOCKER_CREDENTIALS = credentials('docker-hub-credentials')  // Declare credentials globally
