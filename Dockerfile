@@ -13,9 +13,6 @@ RUN npm install --force
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the Vite.js front end
-RUN npm run dev
-
 # Expose the port the app runs on
 EXPOSE 3000
 
