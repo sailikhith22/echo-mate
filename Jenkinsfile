@@ -9,7 +9,7 @@ pipeline {
         CONTAINER_NAME = 'SaigaduTHOPU'
         APP_PATH = '/home/echo-mate'
         TAGGED_IMAGE_NAME = 'jenkins:sai'  // New tagged image name
-        DOCKER_HUB_REPO = 'sailikhith/Jenkins'  // Replace with your Docker Hub repo name
+        DOCKER_HUB_REPO = 'sailikhith/jenkins'  // Replace with your Docker Hub repo name
     }
 
     stages {
