@@ -8,6 +8,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'  // Jenkins credentials ID for Docker Hub
         CONTAINER_NAME = 'SaigaduTHOPU'
         APP_PATH = '/home/echo-mate'
+        TAGGED_IMAGE_NAME = 'jenkins:sai'  // New tagged image name
     }
 
     stages {
@@ -29,15 +30,27 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
+        stage('Tag Docker Image') {
             steps {
                 script {
-                    // Push the built image to Docker Hub using docker push directly
-                    withCredentials([usernamePassword(credentialsId:${DOCKER_CREDENTIALS_ID}, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    // Tag the built image with a new name
+                    sh """
+                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${TAGGED_IMAGE_NAME}
+                    """
+                }
+            }
+        }
+        stage('Push Docker Images') {
+            steps {
+                script {
+                    // Push both images to Docker Hub using docker push directly
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh """
                         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
-                        """            }
+                        docker push ${IMAGE_NAME}:${IMAGE_TAG}  // Push the original image
+                        docker push ${TAGGED_IMAGE_NAME}  // Push the newly tagged image
+                        """
+                    }
                 }
             }
         }
@@ -51,5 +64,15 @@ pipeline {
                 }
             }
         }
-    }  
-}    
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
+
