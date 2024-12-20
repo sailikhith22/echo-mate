@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_REPO = 'https://github.com/sailikhith22/echo-mate.git'
-        IMAGE_NAME = 'node:18'  // Base name for your Docker image
+        IMAGE_NAME = 'node'  // Base name for your Docker image
         IMAGE_TAG = 'sai'  // Tag for your Docker image
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'  // Jenkins credentials ID for Docker Hub
         CONTAINER_NAME = 'SaigaduTHOPU'
