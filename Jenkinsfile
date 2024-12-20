@@ -49,7 +49,7 @@ pipeline {
                         sh """
                         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
                         docker push ${IMAGE_NAME}:${IMAGE_TAG}  // Push the original image
-                        docker push ${DOCKER_HUB_REPO}:sai  // Push the newly tagged image to your repo
+                        docker push ${DOCKER_HUB_REPO}  // Push the newly tagged image to your repo
                         """
                     }
                 }
