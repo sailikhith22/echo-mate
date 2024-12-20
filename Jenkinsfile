@@ -9,6 +9,7 @@ pipeline {
         CONTAINER_NAME = 'SaigaduTHOPU'
         APP_PATH = '/home/echo-mate'
         TAGGED_IMAGE_NAME = 'jenkins:sai'  // New tagged image name
+        DOCKER_HUB_REPO = 'sailikhith/Jenkins'  // Replace with your Docker Hub repo name
     }
 
     stages {
@@ -33,9 +34,9 @@ pipeline {
         stage('Tag Docker Image') {
             steps {
                 script {
-                    // Tag the built image with a new name
+                    // Tag the built image with a new name for Docker Hub
                     sh """
-                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${TAGGED_IMAGE_NAME}
+                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_HUB_REPO}:sai
                     """
                 }
             }
@@ -48,7 +49,7 @@ pipeline {
                         sh """
                         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
                         docker push ${IMAGE_NAME}:${IMAGE_TAG}  // Push the original image
-                        docker push ${TAGGED_IMAGE_NAME}  // Push the newly tagged image
+                        docker push ${DOCKER_HUB_REPO}:sai  // Push the newly tagged image to your repo
                         """
                     }
                 }
