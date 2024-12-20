@@ -5,7 +5,6 @@ pipeline {
         GIT_REPO = 'https://github.com/sailikhith22/echo-mate.git'
         IMAGE_NAME = 'node'  // Base name for your Docker image
         IMAGE_TAG = '18'  // Tag for your Docker image
-        K8S_DEPLOYMENT_FILE = 'deployment.yml'  // Path to your Kubernetes deployment file
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'  // Jenkins credentials ID for Docker Hub
         CONTAINER_NAME = 'SaigaduTHOPU'
         APP_PATH = '/home/echo-mate'
@@ -52,26 +51,5 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    // Deploy the application to Kubernetes using kubectl
-                    sh """
-                    kubectl apply -f ${K8S_DEPLOYMENT_FILE}
-                    """
-                }
-            }
-        }
-        
-    }
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
-    }
-}
-
-
+    }  
+}    
