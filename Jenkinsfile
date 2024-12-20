@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         GIT_REPO = 'https://github.com/sailikhith22/echo-mate.git'
-        IMAGE_NAME = "node:18"  // Base name for your Docker image
-        IMAGE_TAG = "saigaduthopu"  // Tag for your Docker image
-        K8S_DEPLOYMENT_FILE = "deployment.yml"  // Path to your Kubernetes deployment file
+        IMAGE_NAME = 'node:18'  // Base name for your Docker image
+        IMAGE_TAG = 'saigaduthopu'  // Tag for your Docker image
+        K8S_DEPLOYMENT_FILE = 'deployment.yml'  // Path to your Kubernetes deployment file
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'  // Jenkins credentials ID for Docker Hub
         APP_PATH = '/home/echo-mate'
     }
